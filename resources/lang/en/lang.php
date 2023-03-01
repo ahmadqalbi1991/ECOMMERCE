@@ -149,5 +149,6 @@ return [
     'subtotal' => 'Subtotal',
     'tax' => 'Tax',
     'order_total' => 'Order Total',
-    'logout_success' => 'Logout success'
+    'logout_success' => 'Logout success',
+    'level' => 'Level'
 ];

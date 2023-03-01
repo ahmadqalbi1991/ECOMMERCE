@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/save', [CategoryController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('edit');
         Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('delete');
+        Route::post('/get-parent-categories', [CategoryController::class, 'getParentCategories'])->name('get-parent-category');
     });
 
     Route::group(['prefix' => 'brands', 'as' => 'brands.'], function () {

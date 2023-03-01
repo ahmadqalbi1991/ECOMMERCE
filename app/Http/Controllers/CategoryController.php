@@ -13,7 +13,9 @@ class CategoryController extends Controller
      */
     public function index () {
         $data['title'] = __('lang.categories');
-        $data['categories'] = Category::with('parent_category')->get();
+        $data['categories'] = Category::with('sub_categories')
+            ->whereNull('parent_id')
+            ->get();
 
         return view('pages.categories.index')->with($data);
     }
@@ -77,5 +79,23 @@ class CategoryController extends Controller
     public function delete($id) {
         Category::where('id', $id)->delete();
         return back()->with('message', 'success=' . __('lang.delete_success', ['field' => __('lang.category')]));
+    }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function getParentCategories(Request $request) {
+        $input = $request->all();
+        $level = $input['level'] - 1;
+        $html = '<option value="">' . __('lang.select_option', ['field' => __('lang.category')]) . '</option>';
+        if ($level) {
+            $categories = Category::where(['level' => $level, 'is_active' => 1])->get();
+            foreach ($categories as $category) {
+                $html .= '<option value="' . $category->id . '">' . $category->category . '</option>';
+            }
+        }
+
+        return $html;
     }
 }
