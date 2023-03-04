@@ -77,7 +77,10 @@ class SiteController extends Controller
                 }])
                 ->first();
             $navigation_menus = Category::select('category', 'slug')->where(['parent_id' => null, 'is_active' => 1, 'is_nav' => 1])->latest()->limit(5)->get();
-            $categories = Category::select('category', 'slug')->where(['parent_id' => null, 'is_active' => 1])->get();
+            $categories = Category::with(['sub_categories' => function ($q) {
+                return $q->with('sub_categories');
+            }])
+                ->where(['parent_id' => null, 'is_active' => 1])->get();
 
             $data['site_data'] = $setting;
             $data['navigation_menus'] = $navigation_menus;
