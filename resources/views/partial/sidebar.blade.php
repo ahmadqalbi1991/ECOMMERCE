@@ -73,6 +73,12 @@
                         <span>{{ __('lang.orders') }}</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ request()->is('feedbacks') ? 'active' : '' }}">
+                    <a href="{{ route('feedbacks.index') }}" class='sidebar-link'>
+                        <i class="bi bi-chat-dots-fill"></i>
+                        <span>{{ __('lang.feedbacks') }}</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{ request()->is('setting') ? 'active' : '' }}">
                     <a href="{{ route('setting.index') }}" class='sidebar-link'>
                         <i class="bi bi-gear-fill"></i>

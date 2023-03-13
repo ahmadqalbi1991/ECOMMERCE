@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromoCodeController;
@@ -98,6 +99,12 @@ Route::group(['middleware' => 'auth'], function () {
        Route::get('/detail/{id}', [OrderController::class, 'detail'])->name('detail');
        Route::get('/pdf', [OrderController::class, 'PDF'])->name('pdf');
        Route::post('/change-status', [OrderController::class, 'changeStatus'])->name('change-status');
+    });
+
+    Route::group(['prefix' => 'feedbacks', 'as' => 'feedbacks.'], function () {
+        Route::get('/', [FeedbackController::class, 'index'])->name('index');
+        Route::get('/published/{id}/{status}', [FeedbackController::class, 'handlePublished'])->name('published');
+        Route::get('/delete/{id}', [FeedbackController::class, 'delete'])->name('delete');
     });
 });
 

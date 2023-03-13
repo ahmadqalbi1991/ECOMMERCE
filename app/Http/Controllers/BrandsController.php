@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -15,6 +16,13 @@ class BrandsController extends Controller
     public function index () {
         $data['title'] = __('lang.brands');
         $data['brands'] = Brand::all();
+        $categories = Category::with(['sub_categories' => function ($q) {
+                return $q->with('sub_categories');
+            }])
+            ->where('level', 1)->get();
+
+        $data['categories'] = $categories;
+
         return view('pages.brands.index')->with($data);
     }
 

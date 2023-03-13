@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Feedback;
 use App\Models\Product;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -45,10 +46,13 @@ class SiteController extends Controller
                 ->limit(8)
                 ->get();
 
+            $feedbacks = Feedback::with('user')->where('published', 1)->latest()->get();
+
             $data['categories'] = $categories;
             $data['discounted_products'] = $discounted_products;
             $data['fruits_vegetables_products'] = $fruits_vegetables_products;
             $data['everyday_products'] = $everyday_products;
+            $data['feedbacks'] = $feedbacks;
 
             return Response::json([
                 'success' => true,

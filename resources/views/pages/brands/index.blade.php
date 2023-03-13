@@ -7,7 +7,8 @@
                     <h5>{{ __('lang.brands') }}</h5>
                 </div>
                 <div class="col-4 text-right">
-                    <a href="javascript:void(0)" class="btn btn-primary btn-sm" data-bs-target="#addBrand" data-bs-toggle="modal"><i
+                    <a href="javascript:void(0)" class="btn btn-primary btn-sm" data-bs-target="#addBrand"
+                       data-bs-toggle="modal"><i
                             class="bi bi-plus"></i> {{ __('lang.add_option', ['field' => __('lang.brand')]) }}</a>
                 </div>
             </div>
@@ -54,28 +55,56 @@
                 <div class="modal-header">
                     <h5 class="modal-title">{{ __('lang.add_option', ['field' => __('lang.brand')]) }}</h5>
                 </div>
-                <form action="{{ route('brands.store') }}" method="post" data-parsley-validate enctype="multipart/form-data">
+                <form action="{{ route('brands.store') }}" method="post" data-parsley-validate
+                      enctype="multipart/form-data">
                     @csrf
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="">{{ __('lang.brand') }}</label>
-                                <input type="text" name="title" class="form-control" required>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">{{ __('lang.brand') }}</label>
+                                    <input type="text" name="title" class="form-control" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="">{{ __('lang.image') }}</label>
-                                <input type="file" name="image" class="dropify" required>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">{{ __('lang.category') }}</label>
+                                    <select name="category_id" id="category_id" class="form-control">
+                                        <option
+                                            value="">{{ __('lang.select_option', ['field' => __('lang.category')]) }}</option>
+                                        @foreach($categories as $key => $category)
+                                            <option value="{{ $category->id }}">{{ $key + 1 }} {{ $category->category }}</option>
+                                            @if($category->sub_categories->count())
+                                                @foreach($category->sub_categories as $key1 => $category)
+                                                    <option
+                                                        value="{{ $category->id }}">{{ $key + 1 }}.{{ $key1 + 1 }} {{ $category->category }}</option>
+                                                    @if($category->sub_categories->count())
+                                                        @foreach($category->sub_categories as $key2 => $category)
+                                                            <option
+                                                                value="{{ $category->id }}">{{ $key + 1 }}.{{ $key1 + 1 }}.{{ $key2 + 1 }} {{ $category->category }}</option>
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">{{ __('lang.image') }}</label>
+                                    <input type="file" name="image" class="dropify" required>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> {{ __('lang.add_option', ['field' => __('lang.brand')]) }}</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('close') }}</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"><i
+                                class="bi bi-save"></i> {{ __('lang.add_option', ['field' => __('lang.brand')]) }}
+                        </button>
+                        <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">{{ __('close') }}</button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\RegisterSuccessEmailJob;
 use App\Mail\RegisterSuccessEmail;
 use App\Models\Address;
+use App\Models\Feedback;
 use App\Models\OrderItem;
 use App\Models\OrderSession;
 use App\Models\PointsHistory;
@@ -768,6 +769,9 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function logout() {
         try {
             $user = Auth::user()->token();
@@ -778,6 +782,40 @@ class UserController extends Controller
                 'status_code' => 200,
                 'message' => __('lang.logout_success')
             ], 200);
+        } catch (\Exception $exception) {
+            return Response::json([
+                'success' => false,
+                null,
+                'status_code' => 500,
+                'message' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function saveReview (Request $request) {
+        try {
+            $input = $request->all();
+            $input['user_id'] = Auth::id();
+            $success = Feedback::create($input);
+            if ($success) {
+                return Response::json([
+                    'success' => true,
+                    "data" => null,
+                    'status_code' => 200,
+                    'message' => __('lang.feedback_success')
+                ], 200);
+            } else {
+                return Response::json([
+                    'success' => false,
+                    null,
+                    'status_code' => 500,
+                    'message' => __('lang.illegal_error')
+                ], 500);
+            }
         } catch (\Exception $exception) {
             return Response::json([
                 'success' => false,

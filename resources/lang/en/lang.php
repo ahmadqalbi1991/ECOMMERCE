@@ -150,5 +150,12 @@ return [
     'tax' => 'Tax',
     'order_total' => 'Order Total',
     'logout_success' => 'Logout success',
-    'level' => 'Level'
+    'level' => 'Level',
+    'feedback_success' => 'Feedback Saved Successfully',
+    'feedbacks' => 'Feedbacks',
+    'review' => 'Review',
+    'rating' => 'Rating',
+    'date' => 'Date',
+    'published' => 'Published',
+    'unpublished' => 'Unpublished',
 ];

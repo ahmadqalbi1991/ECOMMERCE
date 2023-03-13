@@ -22,7 +22,9 @@ Route::group(['middleware' => ['api', 'verify_api', 'throttle:10000000000000,1']
     Route::get('/site-setting', [SiteController::class, 'siteSetting']);
     Route::get('/homeFeeds', [SiteController::class, 'homeFeeds']);
     Route::get('/getProducts', [ProductController::class, 'getProducts']);
+    Route::get('/getCategoryProducts', [ProductController::class, 'getCategoryProducts']);
     Route::get('/product/{slug}', [ProductController::class, 'getProduct']);
+    Route::post('/get-recent-products', [ProductController::class, 'getRecentProducts']);
     Route::post('/register', [UserController::class, 'register']);
     Route::get('/cities-options', [SiteController::class, 'getCities']);
     Route::post('/secure-key-generate', [SiteController::class, 'generateHMAC']);
@@ -36,6 +38,7 @@ Route::group(['middleware' => ['api', 'verify_api', 'throttle:10000000000000,1']
         Route::get('/delete-address/{id}', [UserController::class, 'deleteAddress']);
         Route::post('/save-cart-session', [UserController::class, 'saveOrderSession']);
         Route::post('/apply-code', [UserController::class, 'applyCode']);
+        Route::post('/save-review', [UserController::class, 'saveReview']);
         Route::get('/get-billu-points-history', [UserController::class, 'getPointsHistory']);
         Route::post('/update-profile', [UserController::class, 'updateProfile']);
         Route::get('/my-orders', [UserController::class, 'myOrders']);

@@ -271,7 +271,7 @@
                                                                     name="banner"
                                                                     class="dropify"
                                                                     data-max-width="1300"
-                                                                    data-min-height="300"
+                                                                    data-max-height="365"
                                                                 >
                                                             </div>
                                                         </div>
