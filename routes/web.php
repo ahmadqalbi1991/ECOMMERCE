@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/store', [ProductController::class, 'store'])->name('store');
         Route::post('/update/{slug}', [ProductController::class, 'update'])->name('update');
         Route::get('/delete/{slug}', [ProductController::class, 'delete'])->name('delete');
+        Route::get('/delete/image/{id}', [ProductController::class, 'deleteImage'])->name('delete-image');
     });
 
     Route::group(['prefix' => 'promo-codes', 'as' => 'promo-codes.'], function () {

@@ -6,6 +6,7 @@ use App\Models\Attribute;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -57,13 +58,22 @@ class ProductController extends Controller
             $inputs['slug'] = $slug;
             $inputs['product_type'] = 'simple';
             $inputs['is_active'] = 1;
-            if ($request->hasFile('default_image')) {
-                $file_image = $slug . '_default';
-                $logo_path = 'site/images/products/' . $slug;
-                $file_image = uploadSingleImage($request->file('default_image'), $file_image, $logo_path);
-                $inputs['default_image'] = $file_image;
-            }
+            $images = $inputs['images'];
+            unset($inputs['images']);
             $result = Product::create($inputs);
+            if ($result) {
+                $file_image = '';
+                foreach ($images as $key => $image) {
+                    $file_image = $slug . ('_' . ($key + 1));
+                    $logo_path = 'site/images/products/' . $slug;
+                    $file_image = uploadSingleImage($image, $file_image, $logo_path);
+                    ProductImage::create(['images' => $file_image, 'product_id' => $result->id]);
+                }
+
+                $result->default_image = $file_image;
+                $result->save();
+            }
+
             return back()->with('message', 'success=' . __('lang.saved_success', ['field' => __('lang.product')]));
         } catch (\Exception $e) {
             return back()->with('message', 'error=' . __('lang.illegal_error'));
@@ -80,7 +90,7 @@ class ProductController extends Controller
         $data['categories'] = Category::where('is_active', 1)->latest()->get();
         $data['units'] = ProductUnit::all();
         $data['brands'] = Brand::where('is_active', 1)->latest()->get();
-        $data['product'] = Product::where('slug', $slug)->first();
+        $data['product'] = Product::where('slug', $slug)->with('images')->first();
 
         return view('pages.products.edit')->with($data);
     }
@@ -94,11 +104,14 @@ class ProductController extends Controller
     {
         try {
             $inputs = $request->except('_token');
-            if ($request->hasFile('default_image')) {
-                $file_image = $slug . '_default';
+            $images = $inputs['images'];
+            unset($inputs['images']);
+            $product = Product::where('slug', $slug)->first();
+            foreach ($images as $key => $image) {
+                $file_image = $slug . ('_' . ($key + 1));
                 $logo_path = 'site/images/products/' . $slug;
-                $file_image = uploadSingleImage($request->file('default_image'), $file_image, $logo_path);
-                $inputs['default_image'] = $file_image;
+                $file_image = uploadSingleImage($image, $file_image, $logo_path);
+                ProductImage::create(['images' => $file_image, 'product_id' => $product->id]);
             }
 
             if (!isset($inputs['allow_add_to_cart_when_out_of_stock'])) {
@@ -174,5 +187,16 @@ class ProductController extends Controller
         $html .= "</div><hr>";
 
         return $html;
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteImage($id)
+    {
+        ProductImage::where('id', $id)->delete();
+
+        return back()->with('message', 'success=' . __('lang.delete_success', ['field' => __('lang.image')]));
     }
 }

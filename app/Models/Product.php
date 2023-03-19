@@ -44,4 +44,8 @@ class Product extends Model
     public function unit () {
         return $this->belongsTo(ProductUnit::class, 'unit_id');
     }
+
+    public function images() {
+        return $this->hasMany(ProductImage::class, 'product_id');
+    }
 }

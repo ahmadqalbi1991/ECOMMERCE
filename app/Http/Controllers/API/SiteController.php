@@ -18,10 +18,11 @@ class SiteController extends Controller
      */
     public function homeFeeds () {
         try {
-            $categories = Category::with(['sub_categories' => function ($q) {
-                    return $q->with('sub_categories');
-                }])
-                ->where(['parent_id' => null, 'is_active' => 1])->get();
+//            $categories = Category::with(['sub_categories' => function ($q) {
+//                    return $q->with('sub_categories');
+//                }])
+//                ->where(['parent_id' => null, 'is_active' => 1])->get();
+            $categories = Category::where(['is_active' => 1, 'level' => 3])->get();
             $discounted_products = Product::select('product_title', 'price', 'slug', 'id', 'discount_type', 'discount_value', 'unit_id', 'unit_value', 'default_image', 'apply_discount')
                 ->with(['unit' => function ($q) {
                     return $q->select('unit', 'prefix', 'id', 'id');

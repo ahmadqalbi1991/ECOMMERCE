@@ -146,6 +146,7 @@ return [
     'receiver_name' => 'Receiver Name',
     'promo_code_discount' => 'Promo Code Discount',
     'billu_bhai_discounts' => 'BilluBhai Discount',
+    'images' => 'Images',
     'subtotal' => 'Subtotal',
     'tax' => 'Tax',
     'order_total' => 'Order Total',

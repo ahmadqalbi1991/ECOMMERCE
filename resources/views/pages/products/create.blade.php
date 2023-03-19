@@ -202,9 +202,13 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="">{{ __('lang.default_image') }}</label>
-                                    <input type="file" name="default_image" id="default_image" class="dropify" required>
+                                    <label for="formFileMultiple" class="form-label">{{ __('lang.images') }}</label>
+                                    <input class="form-control" type="file" id="formFileMultiple" name="images[]" multiple required />
                                 </div>
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="">{{ __('lang.default_image') }}</label>--}}
+{{--                                    <input type="file" name="default_image" id="default_image" class="dropify" required>--}}
+{{--                                </div>--}}
                             </div>
                             <div class="col-12 text-right">
                                 <button type="submit" class="btn btn-success"><i

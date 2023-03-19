@@ -117,7 +117,7 @@ class ProductController extends Controller
      */
     public function getProduct($slug) {
         try {
-            $product = Product::where(['slug' => $slug, 'is_active' => 1])->with(['category', 'unit'])->first();
+            $product = Product::where(['slug' => $slug, 'is_active' => 1])->with(['category', 'unit', 'images'])->first();
             $similar_products = Product::where('category_id', $product->category_id)
                 ->with(['unit' => function ($q) {
                     return $q->select('unit', 'prefix', 'id');
