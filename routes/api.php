@@ -22,6 +22,8 @@ Route::group(['middleware' => ['api', 'verify_api', 'throttle:10000000000000,1']
     Route::get('/site-setting', [SiteController::class, 'siteSetting']);
     Route::get('/homeFeeds', [SiteController::class, 'homeFeeds']);
     Route::get('/getProducts', [ProductController::class, 'getProducts']);
+    Route::get('/getDealProducts/{id}', [ProductController::class, 'getDealProducts']);
+    Route::get('/search', [ProductController::class, 'search']);
     Route::get('/getCategoryProducts', [ProductController::class, 'getCategoryProducts']);
     Route::get('/product/{slug}', [ProductController::class, 'getProduct']);
     Route::post('/get-recent-products', [ProductController::class, 'getRecentProducts']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Models\City;
+use App\Models\Deal;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use function Symfony\Component\String\b;
@@ -18,6 +19,7 @@ class SettingController extends Controller
         $data['title'] = __('lang.settings');
         $data['setting'] = Setting::with('banners')->first();
         $data['cities'] = City::all();
+        $data['deals'] = Deal::where('is_active', 1)->doesntHave('banner')->get();
 
         return view('pages.setting.index')->with($data);
     }
@@ -69,7 +71,7 @@ class SettingController extends Controller
      */
     public function saveBannerImages (Request $request) {
         try {
-            if ($request->has('banner')) {
+            if ($request->hasFile('banner')) {
                 $file_banner_name = 'banner_' . time();
                 $path = 'site/images/banners/';
                 $result = uploadSingleImage($request->file('banner'), $file_banner_name, $path);
@@ -78,6 +80,11 @@ class SettingController extends Controller
                     $banner['path'] = $path;
                     $banner['setting_id'] = $request->get('id');
                     $banner['show_on_home'] = 1;
+                    $banner['deal_id'] = $request->get('deal_id');
+                    $banner['content_heading'] = $request->get('content_heading');
+                    $banner['content'] = $request->get('content');
+                    $banner['position'] = $request->get('position');
+                    $banner['redirect_to_deal'] = 1;
 
                     Banner::create($banner);
 

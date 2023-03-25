@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DealsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\OrderController;
@@ -93,6 +94,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/save', [FaqController::class, 'store'])->name('save');
         Route::get('/edit/{id}', [FaqController::class, 'edit'])->name('edit');
         Route::get('/delete/{id}', [FaqController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['prefix' => 'deals', 'as' => 'deals.'], function () {
+        Route::get('/', [DealsController::class, 'index'])->name('index');
+        Route::get('/add', [DealsController::class, 'create'])->name('create');
+        Route::post('/save', [DealsController::class, 'store'])->name('save');
+        Route::post('/update/{id}', [DealsController::class, 'update'])->name('update');
+        Route::get('/edit/{id}', [DealsController::class, 'edit'])->name('edit');
+        Route::get('/delete/{id}', [DealsController::class, 'delete'])->name('delete');
+        Route::get('/change-status/{id}/{status}', [DealsController::class, 'changeStatus'])->name('change-status');
     });
 
     Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {

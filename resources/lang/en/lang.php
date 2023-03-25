@@ -159,4 +159,11 @@ return [
     'date' => 'Date',
     'published' => 'Published',
     'unpublished' => 'Unpublished',
+    'deals' => 'Deals',
+    'deal' => 'Deal',
+    'deal_for' => 'Deal For',
+    'position' => 'Position',
+    'center' => 'Center',
+    'right' => 'Right',
+    'left' => 'Left'
 ];

@@ -8,7 +8,7 @@
             <h5>{{ __('lang.edit_option', ['field' => __('lang.promo_code')]) }}</h5>
         </div>
         <div class="card-body">
-            <form action="{{ route('promo-codes.update', ['id' => $promo->id]) }}" method="post" data-parsley-validate>
+            <form action="{{ route('deals.update', ['id' => $promo->id]) }}" method="post" data-parsley-validate>
                 @csrf
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
@@ -120,8 +120,8 @@
                 src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
         <script>
             $(".datepicker").daterangepicker({
-                startDate: moment().startOf('day'),
-                endDate: moment().startOf('day').add(30, 'days'),
+                startDate: '{{ \Carbon\Carbon::parse($deal->validity_from)->format('m/d/Y') }}',
+                endDate: '{{ \Carbon\Carbon::parse($deal->validity_to)->format('m/d/Y') }}',
             });
 
             $("#generate_code").on('click', function () {

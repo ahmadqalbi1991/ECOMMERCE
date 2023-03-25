@@ -79,6 +79,12 @@
                         <span>{{ __('lang.feedbacks') }}</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ request()->is('deals') ? 'active' : '' }}">
+                    <a href="{{ route('deals.index') }}" class='sidebar-link'>
+                        <i class="bi bi-gift-fill"></i>
+                        <span>{{ __('lang.deals') }}</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{ request()->is('setting') ? 'active' : '' }}">
                     <a href="{{ route('setting.index') }}" class='sidebar-link'>
                         <i class="bi bi-gear-fill"></i>

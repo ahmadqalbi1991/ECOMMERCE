@@ -27,6 +27,7 @@ class SiteController extends Controller
                 ->with(['unit' => function ($q) {
                     return $q->select('unit', 'prefix', 'id', 'id');
                 }])
+                ->with('images')
                 ->where(['is_active' => 1, 'apply_discount' => 1, 'is_archive' => 0])
                 ->latest()
                 ->limit(6)
@@ -36,6 +37,7 @@ class SiteController extends Controller
                 $q->with(['unit' => function ($q) {
                     return $q->select('unit', 'prefix', 'id');
                 }]);
+                $q->with('images');
                 return $q->latest()->limit(12);
             }])->first();
             $everyday_products = Product::select('product_title', 'price', 'slug', 'discount_type', 'id', 'discount_value', 'unit_id', 'unit_value', 'default_image', 'allow_add_to_cart_when_out_of_stock', 'apply_discount')
@@ -43,6 +45,7 @@ class SiteController extends Controller
                     return $q->select('unit', 'prefix', 'id');
                 }])
                 ->where(['is_everyday_essential' => 1, 'is_active' => 1, 'is_archive' => 0])
+                ->with('images')
                 ->latest()
                 ->limit(8)
                 ->get();
@@ -78,7 +81,6 @@ class SiteController extends Controller
         try {
             $setting = Setting::with(['banners' => function ($q) {
                     $q->where('show_on_home', 1);
-                    $q->select('title', 'path', 'show_on_home', 'setting_id');
                 }])
                 ->first();
             $navigation_menus = Category::select('category', 'slug')->where(['parent_id' => null, 'is_active' => 1, 'is_nav' => 1])->latest()->limit(5)->get();

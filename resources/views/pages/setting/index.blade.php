@@ -275,6 +275,42 @@
                                                                 >
                                                             </div>
                                                         </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <label for="">{{ __('lang.title') }}</label>
+                                                                <input type="text" name="content_heading" class="form-control" placeholder="Banner Heading">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <label for="">{{ __('lang.desc') }}</label>
+                                                                <textarea name="content" placeholder="Banner Description" id="" rows="5" class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-group">
+                                                                <label for="">{{ __('lang.deals') }}</label>
+                                                                <select name="deal_id" id="deal_id"
+                                                                        class="form-control">
+                                                                    <option value="">{{ __('lang.select_option') }}</option>
+                                                                    @foreach($deals as $deal)
+                                                                        <option value="{{ $deal->id }}">{{ $deal->title }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="form-group">
+                                                                <label for="">{{ __('lang.position') }}</label>
+                                                                <select name="position" id="deal_id"
+                                                                        class="form-control">
+                                                                    <option value="">{{ __('lang.select_option') }}</option>
+                                                                    <option value="center">{{ __('lang.center') }}</option>
+                                                                    <option value="right">{{ __('lang.right') }}</option>
+                                                                    <option value="right">{{ __('lang.left') }}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="row mt-3">
                                                         <div class="col-12 text-right">
