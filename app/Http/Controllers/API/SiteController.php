@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Feedback;
@@ -22,6 +23,8 @@ class SiteController extends Controller
 //                    return $q->with('sub_categories');
 //                }])
 //                ->where(['parent_id' => null, 'is_active' => 1])->get();
+            $banners = Banner::where(['home_page_banner' => 0, 'show_on_home' => 1])->get();
+            $homeDeals = Banner::where(['home_page_banner' => 1])->limit(3)->get();
             $categories = Category::where(['is_active' => 1, 'level' => 3])->get();
             $discounted_products = Product::select('product_title', 'price', 'slug', 'id', 'discount_type', 'discount_value', 'unit_id', 'unit_value', 'default_image', 'apply_discount')
                 ->with(['unit' => function ($q) {
@@ -57,6 +60,8 @@ class SiteController extends Controller
             $data['fruits_vegetables_products'] = $fruits_vegetables_products;
             $data['everyday_products'] = $everyday_products;
             $data['feedbacks'] = $feedbacks;
+            $data['banners'] = $banners;
+            $data['homeDeals'] = $homeDeals;
 
             return Response::json([
                 'success' => true,
@@ -80,7 +85,7 @@ class SiteController extends Controller
     public function siteSetting () {
         try {
             $setting = Setting::with(['banners' => function ($q) {
-                    $q->where('show_on_home', 1);
+                    $q->where(['show_on_home' => 1, 'home_page_banner' => 0]);
                 }])
                 ->first();
             $navigation_menus = Category::select('category', 'slug')->where(['parent_id' => null, 'is_active' => 1, 'is_nav' => 1])->latest()->limit(5)->get();

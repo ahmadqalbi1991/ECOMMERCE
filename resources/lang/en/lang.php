@@ -165,5 +165,6 @@ return [
     'position' => 'Position',
     'center' => 'Center',
     'right' => 'Right',
-    'left' => 'Left'
+    'left' => 'Left',
+    'home_page_banner' => 'Home Page Banner',
 ];

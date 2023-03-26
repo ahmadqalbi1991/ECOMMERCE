@@ -312,6 +312,18 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="">{{ __('lang.home_page_banner') }}</label>
+                                                            <div class="form-check form-switch fs-6">
+                                                                <input class="form-check-input me-0" type="checkbox"
+                                                                       id="toggle-dark" name="home_page_banner"
+                                                                       @if(isset($setting->home_page_banner) && $setting->home_page_banner) checked
+                                                                       @endif value="1">
+                                                                <label class="form-check-label"></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="row mt-3">
                                                         <div class="col-12 text-right">
                                                             <button type="submit" id="save-general-setting"

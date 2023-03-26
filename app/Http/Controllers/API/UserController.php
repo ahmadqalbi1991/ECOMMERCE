@@ -51,7 +51,7 @@ class UserController extends Controller
             $verification_code = \Str::random(50);
             $input['password'] = bcrypt($input['password']);
             $input['verification_code'] = $verification_code;
-            $input['is_verified'] = 1;
+            $input['is_verified'] = 0;
             $input['name'] = $input['first_name'] . ' ' . $input['last_name'];
             $input['role'] = 'b2c';
             $input['billu_card_number'] = $check_billu_card;
