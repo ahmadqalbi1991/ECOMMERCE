@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ForgetPasswordJob;
 use App\Jobs\RegisterSuccessEmailJob;
+use App\Mail\ForgetPasswordEmail;
 use App\Mail\RegisterSuccessEmail;
 use App\Models\Address;
 use App\Models\Feedback;
@@ -816,6 +818,84 @@ class UserController extends Controller
                     'message' => __('lang.illegal_error')
                 ], 500);
             }
+        } catch (\Exception $exception) {
+            return Response::json([
+                'success' => false,
+                null,
+                'status_code' => 500,
+                'message' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function sendResetPasswordLink(Request $request) {
+        try {
+            $input = $request->all();
+            $user = User::where('email', $input['email'])->first();
+            if (!$user) {
+                return Response::json([
+                    'success' => false,
+                    null,
+                    'status_code' => 500,
+                    'message' => __('passwords.user')
+                ], 500);
+            }
+
+            $user->password = '';
+            $user->save();
+            $data['email'] = $user->email;
+            $data['id'] = $user->id;
+            $data['name'] = $user->first_name . ' ' . $user->last_name;
+            $data['setting'] = Setting::first();
+
+            dispatch(new ForgetPasswordJob($data));
+
+            return Response::json([
+                'success' => true,
+                "data" => null,
+                'status_code' => 200,
+                'message' => __('lang.password_reset_link_sent')
+            ], 200);
+        } catch (\Exception $exception) {
+            return Response::json([
+                'success' => false,
+                null,
+                'status_code' => 500,
+                'message' => $exception->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function resetPassword(Request $request) {
+        try {
+            $input = $request->all();
+            $user = User::where(['id' => $input['id'], 'email' => $input['email']])->first();
+            if (!$user) {
+                return Response::json([
+                    'success' => false,
+                    null,
+                    'status_code' => 500,
+                    'message' => __('passwords.user')
+                ], 500);
+            }
+
+            $user->password = bcrypt($input['password']);
+            $user->save();
+
+            return Response::json([
+                'success' => true,
+                "data" => null,
+                'status_code' => 200,
+                'message' => __('lang.success_login')
+            ], 200);
         } catch (\Exception $exception) {
             return Response::json([
                 'success' => false,

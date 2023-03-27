@@ -28,6 +28,8 @@ Route::group(['middleware' => ['api', 'verify_api', 'throttle:10000000000000,1']
     Route::get('/product/{slug}', [ProductController::class, 'getProduct']);
     Route::post('/get-recent-products', [ProductController::class, 'getRecentProducts']);
     Route::post('/register', [UserController::class, 'register']);
+    Route::post('/send-reset-password-link', [UserController::class, 'sendResetPasswordLink']);
+    Route::post('/reset-password', [UserController::class, 'resetPassword']);
     Route::get('/cities-options', [SiteController::class, 'getCities']);
     Route::post('/secure-key-generate', [SiteController::class, 'generateHMAC']);
     Route::post('/verify-token', [UserController::class, 'verifyUser']);
