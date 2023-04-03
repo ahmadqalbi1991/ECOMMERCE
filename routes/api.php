@@ -50,6 +50,7 @@ Route::group(['middleware' => ['api', 'verify_api', 'throttle:10000000000000,1']
         Route::get('/my-wishlist', [UserController::class, 'myWishList']);
         Route::post('/return-order', [UserController::class, 'returnOrder']);
         Route::post('/add-to-wishlist', [UserController::class, 'addToWishList']);
+        Route::get('/remove-to-wishlist/{id}', [UserController::class, 'removeFromWishList']);
         Route::get('/logout', [UserController::class, 'logout']);
     });
 });

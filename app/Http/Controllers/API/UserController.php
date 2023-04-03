@@ -905,4 +905,27 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function removeFromWishList($id) {
+        try {
+            WishList::where('id', $id)->delete();
+            return Response::json([
+                'success' => false,
+                null,
+                'status_code' => 200,
+                'message' => __('lang.product_added_to_wishlist')
+            ], 200);
+        } catch (\Exception $exception) {
+            return Response::json([
+                'success' => false,
+                null,
+                'status_code' => 500,
+                'message' => $exception->getMessage()
+            ], 500);
+        }
+    }
 }
