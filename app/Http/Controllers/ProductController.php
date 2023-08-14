@@ -104,7 +104,7 @@ class ProductController extends Controller
     {
         try {
             $inputs = $request->except('_token');
-            $images = $inputs['images'];
+            $images = !empty($inputs['images']) ? $inputs['images'] : [];
             unset($inputs['images']);
             $product = Product::where('slug', $slug)->first();
             foreach ($images as $key => $image) {
@@ -136,6 +136,7 @@ class ProductController extends Controller
 
             return back()->with('message', 'success=' . __('lang.saved_success', ['field' => __('lang.product')]));
         } catch (\Exception $e) {
+            dd($e);
             return back()->with('message', 'error=' . __('lang.illegal_error'));
         }
 
