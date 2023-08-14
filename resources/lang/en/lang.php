@@ -64,6 +64,7 @@ return [
     'products' => 'Products',
     'sku' => 'SKU Code',
     'price' => 'Price',
+    'cost_price' => 'Cost Price',
     'qty' => 'Quantity',
     'unit_value' => 'Unit Value',
     'product_type' => 'Product Type',

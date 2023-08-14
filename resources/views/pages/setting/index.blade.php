@@ -8,7 +8,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-md-3 col-sm-12">
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                  aria-orientation="vertical">
                                 <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
@@ -25,7 +25,7 @@
                                    aria-selected="true">{{ __('lang.cms') }}</a>
                             </div>
                         </div>
-                        <div class="col-9">
+                        <div class="col-md-9 col-sm-12">
                             <div class="tab-content" id="v-pills-tabContent">
                                 <div class="tab-pane fade show active" id="general" role="tabpanel"
                                      aria-labelledby="v-pills-home-tab">

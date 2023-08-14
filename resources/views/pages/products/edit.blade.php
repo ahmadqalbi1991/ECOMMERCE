@@ -16,14 +16,14 @@
                           enctype="multipart/form-data" id="product-form">
                         @csrf
                         <div class="row">
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.title') }}</label>
                                     <input type="text" name="product_title" id="product_title" class="form-control"
                                            required value="{{ $product->product_title }}">
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.sku') }}</label>
                                     <input type="text" name="sku_code" id="sku_code"
@@ -34,21 +34,28 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.price') }}</label>
                                     <input type="text" name="price" id="price" class="form-control" required
                                            data-parsley-type="number" value="{{ $product->price }}">
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <label for="">{{ __('lang.cost_price') }}</label>
+                                    <input type="text" name="cost_price" id="cost_price" class="form-control" required
+                                           data-parsley-type="number" value="{{ $product->cost_price }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.qty') }}</label>
                                     <input type="text" name="quantity" id="quantity" class="form-control" required
                                            data-parsley-type="number" value="{{ $product->quantity }}">
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.category') }}</label>
                                     <select name="category_id" id="category_id" class="form-control" required>
@@ -62,7 +69,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.brand') }}</label>
                                     <select name="brand_id" id="brand_id" class="form-control" required>
@@ -76,7 +83,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.unit') }}</label>
                                     <select name="unit_id" id="unit_id" class="form-control" required>
@@ -92,7 +99,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.unit_value') }}</label>
                                     <input type="text" name="unit_value" id="unit_value"
@@ -129,7 +136,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-3">
+                            <div class="col-sm-12 col-md-2">
                                 <div class="form-group">
                                     <label for="">&nbsp;</label>
                                     <br><br>
@@ -144,7 +151,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-6">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="form-group">
                                     <label for="">&nbsp;</label>
                                     <br><br>
@@ -156,7 +163,7 @@
                                             <label
                                                 for="apply_discount">{{ __('lang.apply_discount') }}</label>
                                         </div>
-                                        <div class="row @if ($product->apply_discount) d-block @else d-none @endif"
+                                        <div class="row @if ($product->apply_discount) d-flex @else d-none @endif"
                                              id="discount-section">
                                             <div class="col-6">
                                                 <div class="form-group">
@@ -198,53 +205,53 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 d-none" id="variant_div">
-                                <div class="d-flex justify-content-between">
-                                    <h4>{{ __('lang.variants') }}</h4>
-                                    <button type="button" class="btn btn-primary" id="add-variation"><i
-                                            class="bi bi-plus"></i></button>
-                                </div>
-                                <hr>
-                                <div id="variations">
+{{--                            <div class="col-12 d-none" id="variant_div">--}}
+{{--                                <div class="d-flex justify-content-between">--}}
+{{--                                    <h4>{{ __('lang.variants') }}</h4>--}}
+{{--                                    <button type="button" class="btn btn-primary" id="add-variation"><i--}}
+{{--                                            class="bi bi-plus"></i></button>--}}
+{{--                                </div>--}}
+{{--                                <hr>--}}
+{{--                                <div id="variations">--}}
 
-                                </div>
-                            </div>
-                            <div class="col-12">
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.short_desc') }}</label>
                                     <textarea class="form-control textarea" rows="10" name="short_description"
                                               required>{{ $product->short_description }}</textarea>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.long_desc') }}</label>
                                     <textarea class="form-control textarea" rows="10" name="long_description"
                                               required>{{ $product->long_description }}</textarea>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.allergy_info') }}</label>
                                     <textarea class="form-control textarea" rows="10"
                                               name="allergy_info">{{ $product->allergy_info }}</textarea>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.storage_info') }}</label>
                                     <textarea class="form-control textarea" rows="10"
                                               name="storage_info">{{ $product->storage_info }}</textarea>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="formFileMultiple" class="form-label">{{ __('lang.images') }}</label>
                                     <input class="form-control" type="file" id="formFileMultiple" name="images[]"
                                            multiple/>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-sm-12 col-md-6">
                                 <div class="product_images">
                                     @foreach($product->images as $image)
                                         <div class="image">

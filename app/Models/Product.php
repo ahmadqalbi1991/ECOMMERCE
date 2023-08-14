@@ -14,6 +14,7 @@ class Product extends Model
         'sku_code',
         'product_type',
         'price',
+        'cost_price',
         'short_description',
         'long_description',
         'allergy_info',
