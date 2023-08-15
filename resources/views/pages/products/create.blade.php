@@ -134,7 +134,7 @@
                                             <label
                                                 for="apply_discount">{{ __('lang.apply_discount') }}</label>
                                         </div>
-                                        <div class="row d-none" id="discount-section">
+                                        <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
                                                     <label for="">{{ __('lang.discount_type') }}</label>
