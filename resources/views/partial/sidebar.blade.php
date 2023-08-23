@@ -49,6 +49,12 @@
                         <span>{{ __('lang.product_attributes') }}</span>
                     </a>
                 </li>
+                <li class="sidebar-item {{ request()->is('suppliers') ? 'active' : '' }}">
+                    <a href="{{ route('suppliers.index') }}" class='sidebar-link'>
+                        <i class="bi bi-box"></i>
+                        <span>{{ __('lang.suppliers') }}</span>
+                    </a>
+                </li>
                 <li class="sidebar-item {{ request()->is('products') ? 'active' : '' }}">
                     <a href="{{ route('products.index') }}" class='sidebar-link'>
                         <i class="bi bi-boxes"></i>

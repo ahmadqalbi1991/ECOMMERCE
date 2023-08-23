@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PromoCodeController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
@@ -77,6 +78,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/update/{slug}', [ProductController::class, 'update'])->name('update');
         Route::get('/delete/{slug}', [ProductController::class, 'delete'])->name('delete');
         Route::get('/delete/image/{id}', [ProductController::class, 'deleteImage'])->name('delete-image');
+    });
+
+    Route::group(['prefix' => 'suppliers', 'as' => 'suppliers.'], function () {
+        Route::get('/', [SupplierController::class, 'index'])->name('index');
+        Route::get('/edit/{id}', [SupplierController::class, 'edit'])->name('edit');
+        Route::get('/delete/{id}', [SupplierController::class, 'delete'])->name('delete');
+        Route::post('/update/{id}', [SupplierController::class, 'update'])->name('update');
+        Route::post('/store', [SupplierController::class, 'save'])->name('save');
     });
 
     Route::group(['prefix' => 'promo-codes', 'as' => 'promo-codes.'], function () {

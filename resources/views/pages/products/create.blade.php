@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
-                                    <label for="">{{ __('lang.sku') }}</label>
+                                    <label for="">{{ __('lang.item_code') }}</label>
                                     <input type="text" name="sku_code" id="sku_code" class="form-control @error('sku_code') is-invalid @endif"
                                            required>
                                     @error('sku_code')

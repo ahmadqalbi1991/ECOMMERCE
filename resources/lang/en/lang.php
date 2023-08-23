@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'name' => 'Name',
     'dashboard' => 'Dashboard',
     'logout' => 'Logout',
     'settings' => 'Settings',
@@ -61,8 +62,11 @@ return [
     'option' => 'Option',
     'attr_and_options' => 'Attributes and options',
     'product' => 'Product',
+    'supplier' => 'Supplier',
+    'suppliers' => 'Suppliers',
     'products' => 'Products',
     'sku' => 'SKU Code',
+    'item_code' => 'Item Code',
     'price' => 'Price',
     'cost_price' => 'Cost Price',
     'qty' => 'Quantity',
