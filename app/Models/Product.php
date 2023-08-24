@@ -31,7 +31,11 @@ class Product extends Model
         'allow_add_to_cart_when_out_of_stock',
         'default_image',
         'is_active',
-        'is_everyday_essential'
+        'is_everyday_essential',
+        'supplier_id',
+        'whole_sale_price',
+        'cost_price_margin',
+        'in_hand_quantity'
     ];
 
     public function category () {

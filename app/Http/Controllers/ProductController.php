@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductUnit;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -34,6 +35,7 @@ class ProductController extends Controller
         $data['title'] = __('lang.products');
         $data['categories'] = Category::where('is_active', 1)->latest()->get();
         $data['units'] = ProductUnit::all();
+        $data['suppliers'] = Supplier::all();
         $data['brands'] = Brand::where('is_active', 1)->latest()->get();
 
         return view('pages.products.create')->with($data);
@@ -89,6 +91,7 @@ class ProductController extends Controller
         $data['title'] = __('lang.products');
         $data['categories'] = Category::where('is_active', 1)->latest()->get();
         $data['units'] = ProductUnit::all();
+        $data['suppliers'] = Supplier::all();
         $data['brands'] = Brand::where('is_active', 1)->latest()->get();
         $data['product'] = Product::where('slug', $slug)->with('images')->first();
 
@@ -136,7 +139,6 @@ class ProductController extends Controller
 
             return back()->with('message', 'success=' . __('lang.saved_success', ['field' => __('lang.product')]));
         } catch (\Exception $e) {
-            dd($e);
             return back()->with('message', 'error=' . __('lang.illegal_error'));
         }
 

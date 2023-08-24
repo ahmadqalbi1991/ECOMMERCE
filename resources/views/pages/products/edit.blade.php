@@ -37,22 +37,45 @@
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.price') }}</label>
-                                    <input type="text" name="price" id="price" class="form-control" required
-                                           data-parsley-type="number" value="{{ $product->price }}">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" name="price" id="price" class="form-control" required
+                                                   data-parsley-type="number" value="{{ $product->price }}">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" name="whole_sale_price" id="whole_sale_price" class="form-control" required
+                                                   data-parsley-type="number" value="{{ $product->whole_sale_price }}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
                                     <label for="">{{ __('lang.cost_price') }}</label>
-                                    <input type="text" name="cost_price" id="cost_price" class="form-control" required
-                                           data-parsley-type="number" value="{{ $product->cost_price }}">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="text" name="cost_price" id="cost_price" class="form-control" required
+                                                   data-parsley-type="number" value="{{ $product->cost_price }}">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" name="cost_price_margin" id="cost_price_margin" class="form-control" required
+                                                   data-parsley-type="number" value="{{ $product->cost_price_margin }}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group">
-                                    <label for="">{{ __('lang.qty') }}</label>
+                                    <label for="">{{ __('lang.opening_qty') }}</label>
                                     <input type="text" name="quantity" id="quantity" class="form-control" required
                                            data-parsley-type="number" value="{{ $product->quantity }}">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <label for="">{{ __('lang.in_hand_qty') }}</label>
+                                    <input type="text" name="in_hand_quantity" id="in_hand_quantity" class="form-control"
+                                           data-parsley-type="number" value="{{ $product->in_hand_quantity }}">
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-3">
@@ -80,6 +103,18 @@
                                         @endforeach
                                         <option @if ($product->brand_id == "0") selected
                                                 @endif value="0">{{ __('lang.others') }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <label for="">{{ __('lang.supplier') }}</label>
+                                    <select name="supplier_id" id="supplier_id" class="form-control" required>
+                                        <option value="">{{ __('lang.select_option') }}</option>
+                                        @foreach($suppliers as $supplier)
+                                            <option @if ($product->supplier === $supplier->id) selected
+                                                    @endif value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
