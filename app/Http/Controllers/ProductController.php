@@ -78,6 +78,7 @@ class ProductController extends Controller
 
             return back()->with('message', 'success=' . __('lang.saved_success', ['field' => __('lang.product')]));
         } catch (\Exception $e) {
+            dd($e);
             return back()->with('message', 'error=' . __('lang.illegal_error'));
         }
     }
@@ -139,6 +140,7 @@ class ProductController extends Controller
 
             return back()->with('message', 'success=' . __('lang.saved_success', ['field' => __('lang.product')]));
         } catch (\Exception $e) {
+            dd($e);
             return back()->with('message', 'error=' . __('lang.illegal_error'));
         }
 
