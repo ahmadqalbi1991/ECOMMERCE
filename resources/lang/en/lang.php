@@ -69,7 +69,7 @@ return [
     'item_code' => 'Item Code',
     'price' => 'Price',
     'sale_price' => 'Sale Price',
-    'whole_sale_price' => 'Sale Price',
+    'whole_sale_price' => 'Whole Sale Price',
     'cost_price' => 'Cost Price',
     'margin_price' => 'Margin Price',
     'margin' => 'Margin',

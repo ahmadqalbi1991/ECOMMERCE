@@ -6,6 +6,9 @@
     float: right;
 }
 
+.card-body.products label {
+    font-size: 12px;
+}
 
 .product_images .image {
     width: 150px;
@@ -14,6 +17,19 @@
     background: #e5e5e5;
     padding: 20px;
     margin: 10px;
+}
+
+.card-body.products input[type=text], .card-body.products input[type=file], .card-body.products select, .card-body.products button[type=submit] {
+    height: 25px;
+    font-size: 10px;
+}
+
+.card-body.products button[type=submit] {
+    padding: 5px 15px;
+}
+
+.card-body.products input[type=file] {
+    padding: 3px 5px 0px;
 }
 
 .product_images .image img {
@@ -34,4 +50,5 @@
     align-items: center;
 }
 
-.product_images {}
+.product_images {
+}
