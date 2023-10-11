@@ -71,7 +71,7 @@ return [
     'sale_price' => 'Sale Price',
     'whole_sale_price' => 'Whole Sale Price',
     'cost_price' => 'Cost Price',
-    'margin_price' => 'Margin Price',
+    'margin_price' => 'Cost Price Margin',
     'margin' => 'Margin',
     'qty' => 'Quantity',
     'opening_qty' => 'Opening Quantity',
