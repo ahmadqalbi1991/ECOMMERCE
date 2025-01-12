@@ -410,7 +410,7 @@
                                                             for="refund_policy">{{ __('lang.refund_policy') }}</label>
                                                         <textarea name="refund_policy" id="refund_policy"
                                                                   rows="5" class="textarea form-control">
-                                                        {{isset($settig->refund_policy) ? $setting->refund_policy : null}}
+                                                        {{isset($setting->refund_policy) ? $setting->refund_policy : null}}
                                                     </textarea>
                                                     </div>
                                                 </div>
@@ -420,7 +420,7 @@
                                                             for="terms_conditions">{{ __('lang.terms_conditions') }}</label>
                                                         <textarea name="terms_and_conditions" id="terms_conditions"
                                                                   rows="5" class="textarea form-control">
-                                                        {{isset($settig->terms_and_conditions) ? $setting->terms_and_conditions : null}}
+                                                        {{isset($setting->terms_and_conditions) ? $setting->terms_and_conditions : null}}
                                                     </textarea>
                                                     </div>
                                                 </div>
@@ -430,7 +430,7 @@
                                                             for="privacy_policy">{{ __('lang.privacy_policy') }}</label>
                                                         <textarea name="privacy_policy" id="privacy_policy"
                                                                   rows="5" class="textarea form-control">
-                                                        {{isset($settig->privacy_policy) ? $setting->privacy_policy : null}}
+                                                        {{isset($setting->privacy_policy) ? $setting->privacy_policy : null}}
                                                     </textarea>
                                                     </div>
                                                 </div>

@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'units', 'as' => 'units.'], function () {
         Route::get('/', [UnitController::class, 'index'])->name('index');
         Route::post('/save', [UnitController::class, 'store'])->name('store');
+        Route::get('/delete/{id}', [UnitController::class, 'delete'])->name('delete');
     });
 
     Route::group(['prefix' => 'attributes', 'as' => 'attributes.'], function () {

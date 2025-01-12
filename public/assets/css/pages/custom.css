@@ -19,6 +19,14 @@
     margin: 10px;
 }
 
+.logo {
+    width: 100%;
+}
+
+.logo img {
+    width: 100%;
+}
+
 .card-body.products input[type=text], .card-body.products input[type=file], .card-body.products select, .card-body.products button[type=submit] {
     height: 25px;
     font-size: 10px;

@@ -59,7 +59,12 @@ class ProductController extends Controller
             $slug = Str::slug($inputs['product_title']);
             $exist_product = Product::where('slug', $slug)->first();
             if ($exist_product) {
-                return back()->with('message', 'error=' . __('lang.product_already_exists_with_name'));
+                if ($exist_product->is_archive == 0) {
+                    $exist_product->slug = null;
+                    $exist_product->save();
+                } else {
+                    return back()->with('message', 'error=' . __('lang.product_already_exists_with_name'));
+                }
             }
             $inputs['slug'] = $slug;
             $inputs['product_type'] = 'simple';

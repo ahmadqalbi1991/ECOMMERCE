@@ -22,6 +22,7 @@
                                 <th>#</th>
                                 <th>{{ __('lang.unit') }}</th>
                                 <th>{{ __('lang.prefix') }}</th>
+                                <th>{{ __('lang.actions') }}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -30,6 +31,11 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $unit->unit }}</td>
                                     <td>{{ $unit->prefix }}</td>
+                                    <td>
+                                        <a href="{{ route('units.delete', ['id' => $unit->id]) }}" class="text-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

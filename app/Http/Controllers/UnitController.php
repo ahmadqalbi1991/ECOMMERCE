@@ -25,6 +25,16 @@ class UnitController extends Controller
         $inputs = $request->all();
         ProductUnit::create($inputs);
 
-        return back()->with('message', 'success=' . __('lang.saved_success', ['field' => __('lang.brand')]));
+        return back()->with('message', 'success=' . __('lang.saved_success', ['field' => __('lang.unit')]));
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete($id) {
+        ProductUnit::where('id', $id)->delete();
+
+        return back()->with('message', 'success=' . __('lang.delete_success', ['field' => __('lang.unit')]));
     }
 }
