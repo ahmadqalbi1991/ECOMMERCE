@@ -13,7 +13,7 @@
                     @if($setting)
                         <a href=""><img src="{{ asset($setting->logo) }}" alt="Logo"></a>
                     @else
-                        <a href=""><img src="{{ asset($setting->logo) }}" alt="Logo"></a>
+                        <a href=""><img src="https://static.vecteezy.com/system/resources/previews/016/916/479/original/placeholder-icon-design-free-vector.jpg" alt="Logo"></a>
                     @endif
                 </div>
                 <h1 class="auth-title">Log in.</h1>
