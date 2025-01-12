@@ -49,7 +49,7 @@ class ProductController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'sku_code' => 'unique:products'
+                'sku_code' => 'unique:products',
             ]);
 
             if ($validator->fails()) {
@@ -57,6 +57,10 @@ class ProductController extends Controller
             }
             $inputs = $request->except('_token');
             $slug = Str::slug($inputs['product_title']);
+            $exist_product = Product::where('slug', $slug)->first();
+            if ($exist_product) {
+                return back()->with('message', 'error=' . __('lang.product_already_exists_with_name'));
+            }
             $inputs['slug'] = $slug;
             $inputs['product_type'] = 'simple';
             $inputs['is_active'] = 1;
@@ -78,7 +82,6 @@ class ProductController extends Controller
 
             return back()->with('message', 'success=' . __('lang.saved_success', ['field' => __('lang.product')]));
         } catch (\Exception $e) {
-            dd($e);
             return back()->with('message', 'error=' . __('lang.illegal_error'));
         }
     }

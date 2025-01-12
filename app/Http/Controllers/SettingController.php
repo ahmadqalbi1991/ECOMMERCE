@@ -60,7 +60,6 @@ class SettingController extends Controller
                 return back()->with('message', 'error=' . __('lang.illegal_error'));
             }
         } catch (\Exception $e) {
-            dd($e);
             return back()->with('message', 'error=' . __('lang.illegal_error'));
         }
     }
