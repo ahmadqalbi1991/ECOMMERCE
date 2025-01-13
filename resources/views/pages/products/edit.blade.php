@@ -1,6 +1,6 @@
 @extends('app')
 @section('content')
-    <form action="{{ route('products.store') }}" method="post" data-parsley-validate
+    <form action="{{ route('products.update', ['slug' => $product->slug]) }}" method="post" data-parsley-validate
           enctype="multipart/form-data" id="product-form">
         <div class="row">
             <div class="col-md-6 col-sm-12">
@@ -263,7 +263,7 @@
                                 <div class="form-group">
                                     <label for="formFileMultiple" class="form-label">{{ __('lang.images') }}</label>
                                     <input class="form-control" type="file" id="formFileMultiple" name="images[]"
-                                           multiple required/>
+                                           multiple @if(count($product->images) == 0) required @endif/>
                                 </div>
                             </div>
                             <div class="col-12">
