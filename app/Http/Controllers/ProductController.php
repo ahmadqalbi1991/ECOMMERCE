@@ -49,7 +49,7 @@ class ProductController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                'sku_code' => 'unique:products',
+                'sku_code' => 'unique:products,sku_code,NULL,id,is_archive,0',
             ]);
 
             if ($validator->fails()) {
