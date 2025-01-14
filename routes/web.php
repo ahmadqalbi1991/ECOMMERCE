@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [BrandsController::class, 'index'])->name('index');
         Route::post('/save', [BrandsController::class, 'store'])->name('store');
         Route::get('/delete/{id}', [BrandsController::class, 'delete'])->name('delete');
+        Route::post('/update', [BrandsController::class, 'update'])->name('update');
     });
 
     Route::group(['prefix' => 'units', 'as' => 'units.'], function () {

@@ -53,7 +53,7 @@ class ProductController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return back()->withErrors($validator);
+                return back()->withInput()->withErrors($validator);
             }
             $inputs = $request->except('_token');
             $slug = Str::slug($inputs['product_title']);
@@ -63,7 +63,7 @@ class ProductController extends Controller
                     $exist_product->slug = null;
                     $exist_product->save();
                 } else {
-                    return back()->with('message', 'error=' . __('lang.product_already_exists_with_name'));
+                    return back()->withInput()->with('message', 'error=' . __('lang.product_already_exists_with_name'));
                 }
             }
             $inputs['slug'] = $slug;
@@ -75,7 +75,7 @@ class ProductController extends Controller
             if ($result) {
                 $file_image = '';
                 foreach ($images as $key => $image) {
-                    $file_image = $slug . ('_' . ($key + 1));
+                    $file_image = $slug . ('_' . ($key + 1)) . '_' . time();
                     $logo_path = 'site/images/products/' . $slug;
                     $file_image = uploadSingleImage($image, $file_image, $logo_path);
                     ProductImage::create(['images' => $file_image, 'product_id' => $result->id]);
@@ -120,7 +120,7 @@ class ProductController extends Controller
             unset($inputs['images']);
             $product = Product::where('slug', $slug)->first();
             foreach ($images as $key => $image) {
-                $file_image = $slug . ('_' . ($key + 1));
+                $file_image = $slug . ('_' . ($key + 1)) . '_' . time();
                 $logo_path = 'site/images/products/' . $slug;
                 $file_image = uploadSingleImage($image, $file_image, $logo_path);
                 ProductImage::create(['images' => $file_image, 'product_id' => $product->id]);
