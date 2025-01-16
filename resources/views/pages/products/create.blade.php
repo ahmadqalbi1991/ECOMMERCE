@@ -252,6 +252,9 @@
             if ($(this).val() == 0) {
                 $('#unit_value').removeAttr('required');
                 $('#unit_value').attr('disabled', true);
+            } else {
+                $('#unit_value').attr('required', true);
+                $('#unit_value').removeAttr('disabled');
             }
         });
 
