@@ -124,6 +124,9 @@ class ProductController extends Controller
                 $logo_path = 'site/images/products/' . $slug;
                 $file_image = uploadSingleImage($image, $file_image, $logo_path);
                 ProductImage::create(['images' => $file_image, 'product_id' => $product->id]);
+                if ($key === 0) {
+                    $inputs['default_image'] = $file_image;
+                }
             }
 
             if (!isset($inputs['allow_add_to_cart_when_out_of_stock'])) {
@@ -144,11 +147,10 @@ class ProductController extends Controller
                 $inputs['discount_type'] = null;
             }
 
-            Product::where('slug', $slug)->update($inputs);
+            $product->update($inputs);
 
             return back()->with('message', 'success=' . __('lang.saved_success', ['field' => __('lang.product')]));
         } catch (\Exception $e) {
-            dd($e);
             return back()->with('message', 'error=' . __('lang.illegal_error'));
         }
 
