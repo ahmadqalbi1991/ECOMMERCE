@@ -193,7 +193,7 @@
             "ordering": false
         });
 
-        $('.edit-brand').on('click', function () {
+        $(document).on('click', '.edit-brand', function () {
             let item = $(this).data('item');
             $('#editBrand input[name="title"]').val(item.title);
             $('#editBrand input[name="id"]').val(item.id);
