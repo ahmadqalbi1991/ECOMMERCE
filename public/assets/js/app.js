@@ -28,6 +28,52 @@ $('.sidebar-hide').on('click', function () {
    $('#sidebar').removeClass('active');
 });
 
+$(document).on('click', '.delete-item', function () {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: $(this).data('url'),
+                type: 'GET',
+                success: function (response) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your item has been deleted.",
+                        icon: "success"
+                    });
+
+                    Swal.fire({
+                        title: "Done",
+                        text: "Item has been deleted",
+                        icon: "warning",
+                        showCancelButton: false,
+                        confirmButtonColor: "#3085d6",
+                        confirmButtonText: "Ok"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Something went wrong.",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    });
+});
+
 $('.show-sidebar').on('click', function () {
    $('#sidebar').addClass('active');
 });

@@ -208,7 +208,9 @@ class ProductController extends Controller
      */
     public function deleteImage($id)
     {
-        ProductImage::where('id', $id)->delete();
+        $image = ProductImage::where('id', $id)->first();
+        unlink(public_path($image->images));
+        $image->delete();
 
         return back()->with('message', 'success=' . __('lang.delete_success', ['field' => __('lang.image')]));
     }

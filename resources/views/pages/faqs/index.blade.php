@@ -29,7 +29,7 @@
                             <td>{{ $faq->question }}</td>
                             <td>
                                 <a href="{{ route('faqs.edit', ['id' => $faq->id]) }}"><span class="bi bi-pencil"></span></a>
-                                <a href="{{ route('faqs.delete', ['id' => $faq->id]) }}" class="text-danger"><span class="bi bi-trash"></span></a>
+                                <a data-url="{{ route('faqs.delete', ['id' => $faq->id]) }}" class="text-danger delete-item" href="javascript:void(0);"><span class="bi bi-trash"></span></a>
                             </td>
                         </tr>
                         @endforeach

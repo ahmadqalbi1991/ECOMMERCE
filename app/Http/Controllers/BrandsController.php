@@ -13,7 +13,7 @@ class BrandsController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index () {
+    public function  index () {
         $data['title'] = __('lang.brands');
         $data['brands'] = Brand::all();
         $categories = Category::with(['sub_categories' => function ($q) {
@@ -33,6 +33,10 @@ class BrandsController extends Controller
     public function store(Request $request) {
         $inputs = $request->all();
         $inputs['slug'] = Str::slug($inputs['title']);
+        $brand = Brand::where('slug', $inputs['slug'])->exists();
+        if ($brand) {
+            return redirect()->back()->with('error', __('lang.already_taken', ['field' => __('lang.brand')]))->withInput();
+        }
         $inputs['is_active'] = 1;
         if ($request->hasFile('image')) {
             $file_image = 'brand_logo_' . time();

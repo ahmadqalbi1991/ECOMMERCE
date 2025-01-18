@@ -39,8 +39,8 @@
                                            class="text-primary edit-brand">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a href="{{ route('brands.delete', ['id' => $brand->id]) }}"
-                                           class="text-danger">
+                                        <a class="text-danger delete-item" href="javascript:void(0);"
+                                           data-url="{{ route('brands.delete', ['id' => $brand->id]) }}">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </td>

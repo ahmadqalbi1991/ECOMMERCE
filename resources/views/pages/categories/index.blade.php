@@ -1,3 +1,4 @@
+
 @extends('app')
 @section('content')
     <div class="card">
@@ -45,8 +46,8 @@
                                                     <a href="{{ route('categories.edit', ['id' => $category->id]) }}">
                                                         <i class="bi bi-pen"></i>
                                                     </a>
-                                                    <a class="text-danger"
-                                                       href="{{ route('categories.delete', ['id' => $category->id]) }}">
+                                                    <a class="text-danger delete-item" href="javascript:void(0);"
+                                                       data-url="{{ route('categories.delete', ['id' => $category->id]) }}">
                                                         <i class="bi bi-trash"></i>
                                                     </a>
                                                 </h6>
@@ -86,8 +87,8 @@
                                                                         <a href="{{ route('categories.edit', ['id' => $category->id]) }}">
                                                                             <i class="bi bi-pen"></i>
                                                                         </a>
-                                                                        <a class="text-danger"
-                                                                           href="{{ route('categories.delete', ['id' => $category->id]) }}">
+                                                                        <a class="text-danger delete-item" href="javascript:void(0);"
+                                                                           data-url="{{ route('categories.delete', ['id' => $category->id]) }}">
                                                                             <i class="bi bi-trash"></i>
                                                                         </a>
                                                                     </h6>
@@ -132,8 +133,8 @@
                                                                                         <a href="{{ route('categories.edit', ['id' => $category->id]) }}">
                                                                                             <i class="bi bi-pen"></i>
                                                                                         </a>
-                                                                                        <a class="text-danger"
-                                                                                           href="{{ route('categories.delete', ['id' => $category->id]) }}">
+                                                                                        <a class="text-danger delete-item" href="javascript:void(0);"
+                                                                                           data-url="{{ route('categories.delete', ['id' => $category->id]) }}">
                                                                                             <i class="bi bi-trash"></i>
                                                                                         </a>
                                                                                     </h6>

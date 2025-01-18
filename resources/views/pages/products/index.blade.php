@@ -37,7 +37,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>
-                                        <img src="{{ asset('/' . $product->default_image) }}" alt="product_img"
+                                        <img src="{{ asset('/' . $product->images[0]->images) }}" alt="product_img"
                                              width="100">
                                     </td>
                                     <td>{{ $product->product_title }}</td>
@@ -65,7 +65,7 @@
                                         <a href="{{ route('products.edit', ['slug' => $product->slug]) }}" class="text-primary">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a href="{{ route('products.delete', ['slug' => $product->slug]) }}" class="text-danger">
+                                        <a  data-url="{{ route('products.delete', ['slug' => $product->slug]) }}" class="text-danger delete-item" href="javascript:void(0);">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </td>

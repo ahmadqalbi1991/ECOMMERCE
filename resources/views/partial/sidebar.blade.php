@@ -43,12 +43,12 @@
                         <span>{{ __('lang.units') }}</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ request()->is('attributes') ? 'active' : '' }}">
-                    <a href="{{ route('attributes.index') }}" class='sidebar-link'>
-                        <i class="bi bi-list"></i>
-                        <span>{{ __('lang.product_attributes') }}</span>
-                    </a>
-                </li>
+{{--                <li class="sidebar-item {{ request()->is('attributes') ? 'active' : '' }}">--}}
+{{--                    <a href="{{ route('attributes.index') }}" class='sidebar-link'>--}}
+{{--                        <i class="bi bi-list"></i>--}}
+{{--                        <span>{{ __('lang.product_attributes') }}</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
                 <li class="sidebar-item {{ request()->is('suppliers') ? 'active' : '' }}">
                     <a href="{{ route('suppliers.index') }}" class='sidebar-link'>
                         <i class="bi bi-box"></i>

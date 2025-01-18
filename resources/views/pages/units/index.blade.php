@@ -32,7 +32,7 @@
                                     <td>{{ $unit->unit }}</td>
                                     <td>{{ $unit->prefix }}</td>
                                     <td>
-                                        <a href="{{ route('units.delete', ['id' => $unit->id]) }}" class="text-danger">
+                                        <a data-url="{{ route('units.delete', ['id' => $unit->id]) }}" class="text-danger delete-item" href="javascript:void(0);">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </td>

@@ -33,7 +33,7 @@
                                 <a href="{{ route('suppliers.edit', ['id' => $supplier->id]) }}" class="text-primary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a href="{{ route('suppliers.delete', ['id' => $supplier->id]) }}" class="text-danger">
+                                <a data-url="{{ route('suppliers.delete', ['id' => $supplier->id]) }}" class="text-danger delete-item" href="javascript:void(0);">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>

@@ -47,7 +47,7 @@
                                         <i class="bi bi-x-circle-fill"></i>
                                     </a>
                                 @endif
-                                <a href="{{ route('feedbacks.delete', ['id' => $feedback->id]) }}" class="text-danger">
+                                <a data-url="{{ route('feedbacks.delete', ['id' => $feedback->id]) }}" class="text-danger delete-item" href="javascript:void(0);">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>

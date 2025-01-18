@@ -38,7 +38,7 @@
                             <td>
                                 <a href="{{ route('deals.edit', ['id' => $deal->id]) }}"><span
                                         class="bi bi-pencil"></span></a>
-                                <a href="{{ route('deals.delete', ['id' => $deal->id]) }}" class="text-danger"><span
+                                <a data-url="{{ route('deals.delete', ['id' => $deal->id]) }}" class="text-danger delete-item" href="javascript:void(0);"><span
                                         class="bi bi-trash"></span></a>
                             </td>
                         </tr>
