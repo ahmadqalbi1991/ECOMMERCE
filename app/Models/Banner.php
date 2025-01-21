@@ -19,6 +19,7 @@ class Banner extends Model
         'content',
         'redirect_to_deal',
         'position',
-        'home_page_banner'
+        'home_page_banner',
+        'slider_banner'
     ];
 }

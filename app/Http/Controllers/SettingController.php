@@ -85,6 +85,7 @@ class SettingController extends Controller
                     $banner['position'] = $request->get('position');
                     $banner['redirect_to_deal'] = 1;
                     $banner['home_page_banner'] = 1;
+                    $banner['slider_banner'] = $request->get('slider_banner');
 
                     Banner::create($banner);
 

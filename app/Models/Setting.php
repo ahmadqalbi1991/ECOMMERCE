@@ -42,7 +42,8 @@ class Setting extends Model
         'allow_points',
         'allow_points_on_price',
         'amount_to_be_used_on_points',
-        'allow_promo_code'
+        'allow_promo_code',
+        'slider_banner'
     ];
 
      public function banners () {
