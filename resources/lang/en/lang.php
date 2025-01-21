@@ -178,7 +178,7 @@ return [
     'right' => 'Right',
     'left' => 'Left',
     'home_page_banner' => 'Home Page Banner',
-    'slider' => 'Slider Banner',
+    'slider_banner' => 'Slider Banner',
     'forget_password' => 'Forget Password',
     'click_link_below_for_reset_password' => 'Click the button to reset Password',
     'password_reset_link_sent' => 'Reset password link sent to you email.',
