@@ -94,7 +94,9 @@ class SiteController extends Controller
             $categories = Category::with(['sub_categories' => function ($q) {
                 return $q->with('sub_categories');
             }])
-                ->where(['parent_id' => null, 'is_active' => 1])->get();
+                ->where(['parent_id' => null, 'is_active' => 1])
+                ->with('products')
+                ->get();
 
             $data['site_data'] = $setting;
             $data['navigation_menus'] = $navigation_menus;
