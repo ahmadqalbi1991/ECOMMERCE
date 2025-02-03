@@ -127,7 +127,7 @@ class UserController extends Controller
         try {
             $input = $request->only('email', 'password');
             if (Auth::attempt($input)) {
-                if (Auth::user()->is_verified) {
+//                if (Auth::user()->is_verified) {
                     $token = \Str::random(60);
                     $user = Auth::user();
                     UserSession::updateOrCreate(['user_id' => $user->id], ['token' => $token, 'user_id' => Auth::id()]);
@@ -141,14 +141,14 @@ class UserController extends Controller
                         'status_code' => 200,
                         'message' => __('lang.success_login')
                     ], 200);
-                } else {
-                    return Response::json([
-                        'success' => true,
-                        null,
-                        'status_code' => 500,
-                        'message' => __('lang.account_is_not_active')
-                    ], 500);
-                }
+//                } else {
+//                    return Response::json([
+//                        'success' => true,
+//                        null,
+//                        'status_code' => 500,
+//                        'message' => __('lang.account_is_not_active')
+//                    ], 500);
+//                }
             } else {
                 return Response::json([
                     'success' => true,
