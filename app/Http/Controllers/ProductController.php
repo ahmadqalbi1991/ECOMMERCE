@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         $data['title'] = __('lang.products');
-        $data['products'] = Product::where('is_archive', 0)->with(['category', 'brand', 'unit'])->get();
+        $data['products'] = Product::where('is_archive', 0)->with(['category', 'brand', 'unit'])->paginate(10);
 
         return view('pages.products.index')->with($data);
     }

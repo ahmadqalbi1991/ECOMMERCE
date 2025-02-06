@@ -13,69 +13,74 @@
             </div>
         </div>
         <div class="card-body">
-{{--            <div class="row">--}}
-{{--                <div class="col-12">--}}
-                    <div class="table-responsive">
-                        <table class="table table-stripped" id="table1">
-                            <thead>
+            {{--            <div class="row">--}}
+            {{--                <div class="col-12">--}}
+            <div class="table-responsive">
+                <table class="table table-stripped" id="table1">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th></th>
+                        <th>{{ __('lang.title') }}</th>
+                        <th>{{ __('lang.category') }}</th>
+                        <th>{{ __('lang.sku') }}</th>
+                        <th>{{ __('lang.price') }}</th>
+                        <th>{{ __('lang.qty') }}</th>
+                        <th>{{ __('lang.unit') }}</th>
+                        <th>{{ __('lang.discount') }}</th>
+                        <th>{{ __('lang.discounted_price') }}</th>
+                        <th>{{ __('lang.actions') }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($products as $key => $product)
+                        @if(!empty($product->slug))
                             <tr>
-                                <th>#</th>
-                                <th></th>
-                                <th>{{ __('lang.title') }}</th>
-                                <th>{{ __('lang.category') }}</th>
-                                <th>{{ __('lang.sku') }}</th>
-                                <th>{{ __('lang.price') }}</th>
-                                <th>{{ __('lang.qty') }}</th>
-                                <th>{{ __('lang.unit') }}</th>
-                                <th>{{ __('lang.discount') }}</th>
-                                <th>{{ __('lang.discounted_price') }}</th>
-                                <th>{{ __('lang.actions') }}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($products as $key => $product)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>
-                                        <img src="{{ asset('/' . $product->default_image) }}" alt="product_img"
-                                             width="100">
-                                    </td>
-                                    <td>{{ $product->product_title }}</td>
-                                    <td>{{ $product->category ? $product->category->category : 'Others'}}</td>
-                                    <td>{{ $product->sku_code }}</td>
-                                    <td>RS. {{ $product->price }}</td>
-                                    <td>{{ $product->quantity }}</td>
-                                    <td>{{ $product->unit ? $product->unit_value . $product->unit->prefix : 'Others'}}</td>
-                                    <td>{{ $product->apply_discount ? ($product->discount_type === 'value' ? 'RS.' . $product->discount_value : $product->discount_value . '%') : '--' }}</td>
-                                    <td>
-                                        @if($product->apply_discount)
-                                            @if($product->discount_type === 'value')
-                                                RS. {{ $product->price - $product->discount_value }}
-                                                @else
-                                                @php
-                                                $discount = ($product->price * $product->discount_value) / 100
-                                                @endphp
-                                                RS. {{ $product->price - $discount }}
-                                                @endif
+                                <td>{{ $key + 1 }}</td>
+                                <td>
+                                    <img src="{{ asset('/' . $product->default_image) }}" alt="product_img"
+                                         width="100">
+                                </td>
+                                <td>{{ $product->product_title }}</td>
+                                <td>{{ $product->category ? $product->category->category : 'Others'}}</td>
+                                <td>{{ $product->sku_code }}</td>
+                                <td>RS. {{ $product->price }}</td>
+                                <td>{{ $product->quantity }}</td>
+                                <td>{{ $product->unit ? $product->unit_value . $product->unit->prefix : 'Others'}}</td>
+                                <td>{{ $product->apply_discount ? ($product->discount_type === 'value' ? 'RS.' . $product->discount_value : $product->discount_value . '%') : '--' }}</td>
+                                <td>
+                                    @if($product->apply_discount)
+                                        @if($product->discount_type === 'value')
+                                            RS. {{ $product->price - $product->discount_value }}
                                         @else
-                                            --
+                                            @php
+                                                $discount = ($product->price * $product->discount_value) / 100
+                                            @endphp
+                                            RS. {{ $product->price - $discount }}
                                         @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('products.edit', ['slug' => $product->slug]) }}" class="text-primary">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <a  data-url="{{ route('products.delete', ['slug' => $product->slug]) }}" class="text-danger delete-item" href="javascript:void(0);">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-{{--                </div>--}}
-{{--            </div>--}}
+                                    @else
+                                        --
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('products.edit', ['slug' => $product->slug]) }}"
+                                       class="text-primary">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a data-url="{{ route('products.delete', ['slug' => $product->slug]) }}"
+                                       class="text-danger delete-item" href="javascript:void(0);">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    </tbody>
+                </table>
+                {{ $products->links('vendor.pagination.bootstrap-4') }}
+            </div>
+            {{--                </div>--}}
+            {{--            </div>--}}
         </div>
     </div>
 
