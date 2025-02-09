@@ -204,18 +204,19 @@ class ProductController extends Controller
                 return $q->with('sub_categories');
             }])
                 ->where('is_active', 1)
-                ->where('level', 1)
-                ->get();
+                ->where('level', 1);
 
             $brands = Brand::with(['products' => function ($q) {
                 return $q->where(['is_active' => 1, 'is_archive' => 0]);
             }])->where(['is_active' => 1])->get();
 
             $min_price = $max_price = 0;
-            if ($products->count()) {
-                $prices = $products->pluck('price')->toArray();
-                $min_price = min($prices);
-                $max_price = max($prices);
+            if (!empty($input['min_price']) && !empty($input['max_price'])) {
+                $min_price = $input['min_price'];
+                $max_price = $input['max_price'];
+            } else {
+                $min_price = Product::where(['is_active' => 1, 'is_archive' => 0])->min('price');
+                $max_price = Product::where(['is_active' => 1, 'is_archive' => 0])->max('price');
                 if ($min_price === $max_price) {
                     $min_price = 0;
                 }
