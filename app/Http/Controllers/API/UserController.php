@@ -235,7 +235,9 @@ class UserController extends Controller
      */
     public function getAddress() {
         try {
-            $addresses = Address::where('user_id', Auth::id())->get();
+            $addresses = Address::where('user_id', Auth::id())
+            ->with('city')
+            ->get();
 
             return Response::json([
                 'success' => true,
