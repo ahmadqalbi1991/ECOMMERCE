@@ -335,11 +335,12 @@ class ProductController extends Controller
                 ->limit($limit)
                 ->get();
 
-            $min_price = $max_price = 0;
-            if ($products->count()) {
-                $prices = $products->pluck('price')->toArray();
-                $min_price = min($prices);
-                $max_price = max($prices);
+            if (!empty($input['min_price']) && !empty($input['max_price'])) {
+                $min_price = $input['min_price'];
+                $max_price = $input['max_price'];
+            } else {
+                $min_price = Product::where(['is_active' => 1, 'is_archive' => 0, 'category_id' => $category->id])->min('price');
+                $max_price = Product::where(['is_active' => 1, 'is_archive' => 0, 'category_id' => $category->id])->max('price');
                 if ($min_price === $max_price) {
                     $min_price = 0;
                 }
