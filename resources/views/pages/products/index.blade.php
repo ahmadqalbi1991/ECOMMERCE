@@ -1,6 +1,38 @@
 @extends('app')
 @section('content')
     <div class="card">
+        <div class="card-body">
+            <form method="GET">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="q">Product Name</label>
+                        <input type="text" value="{{ request()->q }}" name="q" id="q" class="form-control" placeholder="Product Name">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="category">Category</label>
+                        <select name="category" id="category" class="form-control">
+                            <option value="">Select Category</option>
+                            @foreach($categories as $category)
+                                <option @if(request()->category == $category->id) selected @endif value="{{ $category->id }}">{{ $category->category }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+{{--                    <div class="col-md-2">--}}
+{{--                        <label for="min_price">Minimum Price</label>--}}
+{{--                        <input type="number" value="{{ request()->min_price }}" min="0" max="{{ $max_price }}" name="min_price" id="min_price" class="form-control">--}}
+{{--                    </div>--}}
+{{--                    <div class="col-md-2">--}}
+{{--                        <label for="max_price">Maximum Price</label>--}}
+{{--                        <input type="number" value="{{ request()->max_price ? request()->max_price : $max_price  }}" min="0" max="{{ $max_price }}" name="max_price" id="max_price" class="form-control">--}}
+{{--                    </div>--}}
+                    <div class="text-right mt-4 col-md-12">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card">
         <div class="card-header">
             <div class="row">
                 <div class="col-8">
@@ -88,6 +120,8 @@
 @push('scripts')
     <script>
         let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
+        let dataTable = new simpleDatatables.DataTable(table1, {
+            searchable: false
+        });
     </script>
 @endpush

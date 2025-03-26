@@ -19,10 +19,23 @@ class ProductController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $data['title'] = __('lang.products');
-        $data['products'] = Product::where('is_archive', 0)->with(['category', 'brand', 'unit'])->paginate(10);
+        $data['categories'] = Category::where('is_active', 1)->latest()->get();
+        $products = Product::where('is_archive', 0)
+            ->when($request->q, function ($query) use ($request) {
+                return $query->where('product_title', 'LIKE', '%' . $request->q . '%');
+            })
+            ->when($request->category, function ($query) use ($request) {
+                return $query->where('category_id', $request->category);
+            })
+            ->when($request->max_price && $request->min_price, function ($query) use ($request) {
+                return $query->whereBetween('price', [$request->min_price, $request->max_price]);
+            })
+            ->with(['category', 'brand', 'unit']);
+        $data['max_price'] = $products->max('price');
+        $data['products'] = $products->paginate(10);
 
         return view('pages.products.index')->with($data);
     }
