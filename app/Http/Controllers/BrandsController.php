@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
 
 class BrandsController extends Controller
 {
@@ -15,7 +16,7 @@ class BrandsController extends Controller
      */
     public function  index () {
         $data['title'] = __('lang.brands');
-        $data['brands'] = Brand::all();
+//        $data['brands'] = Brand::all();
         $categories = Category::with(['sub_categories' => function ($q) {
                 return $q->with('sub_categories');
             }])
@@ -24,6 +25,35 @@ class BrandsController extends Controller
         $data['categories'] = $categories;
 
         return view('pages.brands.index')->with($data);
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function getBrands(Request $request)
+    {
+        $brands = Brand::query();
+
+        return DataTables::of($brands)
+            ->addColumn('image', function ($brand) {
+                $imageUrl = asset('/' . $brand->image);
+                return '<img src="' . $imageUrl . '" alt="brand image" width="50">';
+            })
+            ->addColumn('actions', function ($brand) {
+                $deleteUrl = route('brands.delete', ['id' => $brand->id]);
+                return '
+                <a href="javascript:void(0)" data-item="' . htmlspecialchars(json_encode($brand)) . '"
+                   class="text-primary edit-brand">
+                   <i class="bi bi-pencil"></i>
+                </a>
+                <a class="text-danger delete-item" href="javascript:void(0);" data-url="' . $deleteUrl . '">
+                   <i class="bi bi-trash"></i>
+                </a>
+            ';
+            })
+            ->rawColumns(['image', 'actions'])
+            ->make(true);
     }
 
     /**

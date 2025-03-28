@@ -1,4 +1,3 @@
-
 @extends('app')
 @section('content')
     <div class="card">
@@ -53,14 +52,14 @@
                                                 </h6>
                                             </div>
                                             <div class="col-3">
-                                                <button class="accordion-button collapsed" type="button"
-                                                        @if($category->sub_categories()->count())
+                                                @if($category->sub_categories()->count())
+                                                    <button class="accordion-button collapsed" type="button"
                                                             data-bs-toggle="collapse"
-                                                        @endif
-                                                        data-bs-target="#collapse_{{ $key }}" aria-expanded="false"
-                                                        aria-controls="collapseOne">
-                                                    {{ __('lang.parent_category') }}
-                                                </button>
+                                                            data-bs-target="#collapse_{{ $key }}" aria-expanded="false"
+                                                            aria-controls="collapseOne">
+                                                        {{ __('lang.sub_categories') }}
+                                                    </button>
+                                                @endif
                                             </div>
                                         </div>
                                     </h2>
@@ -87,23 +86,24 @@
                                                                         <a href="{{ route('categories.edit', ['id' => $category->id]) }}">
                                                                             <i class="bi bi-pen"></i>
                                                                         </a>
-                                                                        <a class="text-danger delete-item" href="javascript:void(0);"
+                                                                        <a class="text-danger delete-item"
+                                                                           href="javascript:void(0);"
                                                                            data-url="{{ route('categories.delete', ['id' => $category->id]) }}">
                                                                             <i class="bi bi-trash"></i>
                                                                         </a>
                                                                     </h6>
                                                                 </div>
                                                                 <div class="col-3">
-                                                                    <button class="accordion-button collapsed"
-                                                                            type="button"
-                                                                            @if($category->sub_categories()->count())
+                                                                    @if($category->sub_categories()->count())
+                                                                        <button class="accordion-button collapsed"
+                                                                                type="button"
                                                                                 data-bs-toggle="collapse"
-                                                                            @endif
-                                                                            data-bs-target="#subcollapse_{{ $key1 }}"
-                                                                            aria-expanded="false"
-                                                                            aria-controls="collapseOne">
-                                                                        {{ __('lang.parent_category') }}
-                                                                    </button>
+                                                                                data-bs-target="#subcollapse_{{ $key1 }}"
+                                                                                aria-expanded="false"
+                                                                                aria-controls="collapseOne">
+                                                                            {{ __('lang.sub_categories') }}
+                                                                        </button>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </h2>
@@ -120,7 +120,8 @@
                                                                                 class="row w-100 align-items-center">
                                                                                 <div class="col-1">
                                                                                     <h6>
-                                                                                        {{ $key + 1 }}.{{ $key1 + 1 }}.{{ $key2 + 1 }}
+                                                                                        {{ $key + 1 }}.{{ $key1 + 1 }}
+                                                                                        .{{ $key2 + 1 }}
                                                                                     </h6>
                                                                                 </div>
                                                                                 <div class="col-6">
@@ -133,7 +134,8 @@
                                                                                         <a href="{{ route('categories.edit', ['id' => $category->id]) }}">
                                                                                             <i class="bi bi-pen"></i>
                                                                                         </a>
-                                                                                        <a class="text-danger delete-item" href="javascript:void(0);"
+                                                                                        <a class="text-danger delete-item"
+                                                                                           href="javascript:void(0);"
                                                                                            data-url="{{ route('categories.delete', ['id' => $category->id]) }}">
                                                                                             <i class="bi bi-trash"></i>
                                                                                         </a>

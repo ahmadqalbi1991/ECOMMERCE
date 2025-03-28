@@ -46,6 +46,7 @@ return [
     'category' => 'Category',
     'title' => 'Title',
     'parent_category' => 'Parent Category',
+    'sub_categories' => 'Sub Categories',
     'add_option' => 'Add :field',
     'select_option' => 'Select option',
     'brands' => 'Brands',

@@ -53,4 +53,25 @@ class Product extends Model
     public function images() {
         return $this->hasMany(ProductImage::class, 'product_id');
     }
+
+    public function getFormattedDiscountAttribute()
+    {
+        if ($this->apply_discount) {
+            return $this->discount_type === 'value' ? 'RS. ' . $this->discount_value : $this->discount_value . '%';
+        }
+        return '--';
+    }
+
+    public function getDiscountedPriceAttribute()
+    {
+        if ($this->apply_discount) {
+            if ($this->discount_type === 'value') {
+                return $this->price - $this->discount_value;
+            } else {
+                $discount = ($this->price * $this->discount_value) / 100;
+                return $this->price - $discount;
+            }
+        }
+        return null;
+    }
 }

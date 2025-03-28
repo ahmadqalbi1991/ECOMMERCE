@@ -17,29 +17,77 @@ use SebastianBergmann\CodeCoverage\Report\Xml\Unit;
 class ProductController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
+        if ($request->ajax()) {
+            // Server-side processing for DataTables
+            $query = Product::where('is_archive', 0)
+                ->with(['category', 'brand', 'unit']);
+
+            // Search functionality
+            if ($request->has('search') && !empty($request->input('search.value'))) {
+                $search = $request->input('search.value');
+                $query->where(function($q) use ($search) {
+                    $q->where('product_title', 'LIKE', "%{$search}%")
+                        ->orWhere('sku_code', 'LIKE', "%{$search}%")
+                        ->orWhereHas('category', function($cat) use ($search) {
+                            $cat->where('category', 'LIKE', "%{$search}%");
+                        });
+                });
+            }
+
+            // Pagination and ordering
+            $totalRecords = $query->count();
+            $products = $query->skip($request->start)
+                ->take($request->length)
+                ->get()
+                ->map(function ($product) {
+                    $discount = 0;
+                    $formattedDiscount = '--';
+                    $discountedPrice = '--';
+
+                    if ($product->apply_discount) {
+                        if ($product->discount_type === 'value') {
+                            $discount = $product->discount_value;
+                            $formattedDiscount = 'RS. ' . $product->discount_value;
+                        } else {
+                            $discount = ($product->price * $product->discount_value) / 100;
+                            $formattedDiscount = $product->discount_value . '%';
+                        }
+                        $discountedPrice = 'RS. ' . ($product->price - $discount);
+                    }
+
+                    return [
+                        'id' => $product->id,
+                        'slug' => $product->slug,
+                        'default_image' => $product->default_image,
+                        'product_title' => $product->product_title,
+                        'category' => $product->category ? $product->category->category : 'Others',
+                        'sku_code' => $product->sku_code,
+                        'price' => 'RS. ' . $product->price,
+                        'quantity' => $product->quantity,
+                        'unit_value' => $product->unit ? $product->unit_value . $product->unit->prefix : 'Others',
+                        'formatted_discount' => $formattedDiscount,
+                        'discounted_price' => $discountedPrice,
+                    ];
+                });
+
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords,
+                'data' => $products,
+            ]);
+        }
+
         $data['title'] = __('lang.products');
         $data['categories'] = Category::where('is_active', 1)->latest()->get();
-        $products = Product::where('is_archive', 0)
-            ->when($request->q, function ($query) use ($request) {
-                return $query->where('product_title', 'LIKE', '%' . $request->q . '%');
-            })
-            ->when($request->category, function ($query) use ($request) {
-                return $query->where('category_id', $request->category);
-            })
-            ->when($request->max_price && $request->min_price, function ($query) use ($request) {
-                return $query->whereBetween('price', [$request->min_price, $request->max_price]);
-            })
-            ->with(['category', 'brand', 'unit']);
-        $data['max_price'] = $products->max('price');
-        $data['products'] = $products->paginate(10);
+        $data['max_price'] = Product::max('price');
 
         return view('pages.products.index')->with($data);
     }
-
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */

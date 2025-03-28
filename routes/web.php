@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'brands', 'as' => 'brands.'], function () {
         Route::get('/', [BrandsController::class, 'index'])->name('index');
+        Route::get('brands/list', [BrandsController::class, 'getBrands'])->name('list');
         Route::post('/save', [BrandsController::class, 'store'])->name('store');
         Route::get('/delete/{id}', [BrandsController::class, 'delete'])->name('delete');
         Route::post('/update', [BrandsController::class, 'update'])->name('update');
