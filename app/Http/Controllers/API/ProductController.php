@@ -330,6 +330,9 @@ class ProductController extends Controller
                 ->when(!empty($input['min_price']) && !empty($input['max_price']), function ($q) use ($input) {
                     return $q->whereBetween('price', [$input['min_price'], $input['max_price']]);
                 })
+                ->when(!empty($input['order']), function ($q) use ($input) {
+                    return $q->orderBy('price', $input['order']);
+                })
                 ->where(['is_active' => 1, 'is_archive' => 0, 'category_id' => $category->id])
                 ->skip($offset)
                 ->limit($limit)
